@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareShield PH | Community Care Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            teal: '#9ed9b6',
+                            gold: '#ef7b7b',
+                            amber: '#f7d9d9',
+                            rose: '#f76d75',
+                            mint: '#dff7e6',
+                            pink: '#f8dfe9',
+                            green: '#bfe8c8',
+                            red: '#f26d6d',
+                            white: '#ffffff'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff7eb6 0%, #ff9ec8 35%, #d7f7df 35%, #d7f7df 100%);
+            color: #2e2b2d;
+        }
+
+        nav {
+            background-color: #9aa98a !important;
+            border-color: rgba(120, 189, 145, 0.35) !important;
+        }
+
+        .bg-slate-950, .bg-slate-900, .bg-slate-800 {
+            background-color: #021b1d !important;
+        }
+
+        .border-slate-800 {
+            border-color: rgba(148, 163, 184, 0.18) !important;
+        }
+
+        .text-slate-300 {
+            color: #dfeaf3 !important;
+        }
+
+        .text-slate-400 {
+            color: #bfd1dc !important;
+        }
+
+        .text-slate-500 {
+            color: #9db3be !important;
+        }
+
+        .text-white {
+            color: #ffffff !important;
+        }
+
+        .bg-brand-teal {
+            background-color: #5fd6b4 !important;
+            color: #062e31 !important;
+        }
+
+        .text-brand-teal {
+            color: #81ecda !important;
+        }
+
+        .bg-brand-gold, .text-brand-gold {
+            background-color: #f26d6d !important;
+            color: #ffffff !important;
+        }
+
+        .bg-emerald-500\/10, .bg-amber-500\/10, .bg-slate-950\/60, .bg-slate-950\/70 {
+            background-color: rgba(2, 27, 29, 0.94) !important;
+        }
+
+        .border-brand-teal\/30, .border-brand-gold\/30, .border-slate-700 {
+            border-color: rgba(129, 236, 218, 0.22) !important;
+        }
+
+        .dark-mode-text, .text-white, .text-slate-300, .text-slate-400, .text-slate-500 {
+            color: #f3fbff !important;
+        }
+
+        .dark-surface, .bg-slate-950, .bg-slate-900, .bg-slate-800 {
+            color: #effcff !important;
+        }
+
+        ::selection {
+            background: #5fd6b4;
+            color: #062e31;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand-teal selection:text-white">
+
+    <!-- Top Admin Header Bar -->
+    <nav class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand & Portal Tag -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-amber to-brand-gold flex items-center justify-center font-bold text-slate-950 text-xl shadow-lg shadow-brand-gold/10">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-lg text-white tracking-wide block leading-none">CARE<span class="text-brand-gold">SHIELD</span></span>
+                        <span id="portal-label" class="text-[10px] text-brand-gold font-semibold tracking-wider uppercase">Community Care Portal</span>
+                    </div>
+                </div>
+
+                <a href="https://www.facebook.com/warrufojaymanito" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-start gap-2 text-lg font-extrabold tracking-wide text-white transition-colors hover:text-brand-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-gold md:block" aria-label="Visit RUFO JAY MANITO on Facebook">
+                    <svg viewBox="0 0 64 64" class="h-6 w-6 shrink-0 rounded-lg shadow-md" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="fbIconGradient" x1="0" x2="1" y1="0" y2="1">
+                                <stop offset="0%" stop-color="#4b67b2"/>
+                                <stop offset="100%" stop-color="#2d4f92"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#fbIconGradient)"/>
+                        <path d="M36 21h5V9h-6.2C27.2 9 24 12.2 24 18.3V25h-5v12h5v18h12V37h7l1-12h-8v-7.4c0-1.7.9-2.6 2.8-2.6Z" fill="#ffffff"/>
+                    </svg>
+                    <span>RUFO JAY MANITO</span>
+                </a>
+
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <div class="flex rounded-xl border border-slate-800 bg-slate-900 p-1" aria-label="Choose portal">
+                        <button type="button" id="portal-user-button" data-portal="user" class="rounded-lg bg-brand-teal px-3 py-2 text-xs font-bold text-white transition-colors">User portal</button>
+                        <button type="button" id="portal-admin-button" data-portal="admin" class="rounded-lg px-3 py-2 text-xs font-bold text-slate-400 transition-colors">Admin</button>
+                    </div>
+                    <button type="button" id="admin-logout" class="hidden rounded-xl border border-slate-700 px-3 py-2 text-xs font-bold text-slate-300 transition-colors hover:border-rose-400 hover:text-rose-300">Sign out</button>
+                    <span class="hidden rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-[10px] font-bold text-amber-300 sm:inline-flex">DEMO · No backend connected</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="user-interface" class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <div class="overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-teal-950">
+            <div class="grid gap-8 px-6 py-10 sm:px-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-14 lg:py-14">
+                <div>
+                    <span class="inline-flex items-center gap-2 rounded-full border border-brand-teal/30 bg-brand-teal/10 px-3 py-1.5 text-xs font-bold text-teal-300"><i data-lucide="heart-handshake" class="h-4 w-4"></i> Care from your community</span>
+                    <h1 class="mt-5 max-w-2xl text-4xl font-extrabold leading-tight text-white sm:text-5xl">No one should face a health crisis alone.</h1>
+                    <p class="mt-4 max-w-xl text-sm leading-6 text-slate-300">Explore community-supported medical campaigns or share a request for help. Campaigns shown here are sample content for this demo.</p>
+                    <a href="#campaigns" class="mt-7 inline-flex items-center gap-2 rounded-xl bg-brand-teal px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-teal-600">Explore campaigns <i data-lucide="arrow-down" class="h-4 w-4"></i></a>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><i data-lucide="users-round" class="h-5 w-5 text-teal-300"></i><div class="mt-4 text-2xl font-extrabold text-white">Together</div><p class="mt-1 text-xs text-slate-400">Support starts with community</p></div>
+                    <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><i data-lucide="badge-check" class="h-5 w-5 text-brand-gold"></i><div class="mt-4 text-2xl font-extrabold text-white">Reviewed</div><p class="mt-1 text-xs text-slate-400">Requests reviewed before listing</p></div>
+                    <div class="col-span-2 rounded-2xl border border-white/10 bg-white/5 p-4 text-xs leading-5 text-slate-300">INDI PANI FINAL MGA SIR HEHEHEHE</div>
+                </div>
+            </div>
+        </div>
+
+        <section id="campaigns" class="mt-12">
+            <div class="flex flex-wrap items-end justify-between gap-4">
+                <div><p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-teal">Community campaigns</p><h2 class="mt-2 text-2xl font-extrabold text-white">Find a cause to support</h2></div>
+                <span class="inline-flex items-center gap-1.5 text-xs text-slate-400"><i data-lucide="shield-check" class="h-4 w-4 text-emerald-400"></i> Sample verified campaigns</span>
+            </div>
+            <div class="mt-5 grid gap-4 md:grid-cols-3">
+                <article class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+                    <div class="flex h-36 items-center justify-center rounded-xl bg-gradient-to-br from-teal-900 to-slate-800"><i data-lucide="heart-pulse" class="h-12 w-12 text-teal-300"></i></div>
+                    <div class="mt-4 flex items-center justify-between gap-2"><h3 class="font-bold text-white">CSA-B treatment fund</h3><span class="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] font-bold text-emerald-300">Reviewed</span></div>
+                    <p class="mt-2 text-xs leading-5 text-slate-400">Help with ongoing care and treatment expenses.</p>
+                    <div class="mt-4"><div class="flex justify-between text-xs"><span class="text-slate-400">₱92,500 raised</span><span class="text-slate-300">Goal ₱150,000</span></div><div class="mt-2 h-2 rounded-full bg-slate-800"><div class="h-2 w-3/5 rounded-full bg-brand-teal"></div></div></div>
+                    <button type="button" data-support-campaign="CSA-B treatment fund" class="mt-4 w-full rounded-xl border border-slate-700 px-4 py-2.5 text-xs font-bold text-white hover:border-brand-teal">Support this campaign</button>
+                </article>
+                <article class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+                    <div class="flex h-36 items-center justify-center rounded-xl bg-gradient-to-br from-amber-950 to-slate-800"><i data-lucide="baby" class="h-12 w-12 text-brand-gold"></i></div>
+                    <div class="mt-4 flex items-center justify-between gap-2"><h3 class="font-bold text-white">Rufo Jay's care journey</h3><span class="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] font-bold text-emerald-300">Reviewed</span></div>
+                    <p class="mt-2 text-xs leading-5 text-slate-400">A family raising funds for pediatric care.</p>
+                    <div class="mt-4"><div class="flex justify-between text-xs"><span class="text-slate-400">₱184,000 raised</span><span class="text-slate-300">Goal ₱250,000</span></div><div class="mt-2 h-2 rounded-full bg-slate-800"><div class="h-2 w-3/4 rounded-full bg-brand-gold"></div></div></div>
+                    <button type="button" data-support-campaign="Rufo Jay's care journey" class="mt-4 w-full rounded-xl border border-slate-700 px-4 py-2.5 text-xs font-bold text-white hover:border-brand-teal">Support this campaign</button>
+                </article>
+                <article class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+                    <div class="flex h-36 items-center justify-center rounded-xl bg-gradient-to-br from-blue-950 to-slate-800"><i data-lucide="activity" class="h-12 w-12 text-blue-300"></i></div>
+                    <div class="mt-4 flex items-center justify-between gap-2"><h3 class="font-bold text-white">Faiz Villena recovery</h3><span class="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] font-bold text-emerald-300">Reviewed</span></div>
+                    <p class="mt-2 text-xs leading-5 text-slate-400">Support for hospital and recovery costs.</p>
+                    <div class="mt-4"><div class="flex justify-between text-xs"><span class="text-slate-400">₱120,000 raised</span><span class="text-slate-300">Goal ₱300,000</span></div><div class="mt-2 h-2 rounded-full bg-slate-800"><div class="h-2 w-2/5 rounded-full bg-blue-400"></div></div></div>
+                    <button type="button" data-support-campaign="Faiz Villena recovery" class="mt-4 w-full rounded-xl border border-slate-700 px-4 py-2.5 text-xs font-bold text-white hover:border-brand-teal">Support this campaign</button>
+                </article>
+            </div>
+        </section>
+
+        <section id="accepted-cases" class="mt-12" aria-labelledby="accepted-cases-title">
+            <div class="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-teal">Verified by CareShield</p>
+                    <h2 id="accepted-cases-title" class="mt-2 text-2xl font-extrabold text-white">Approved cases</h2>
+                </div>
+                <span class="inline-flex items-center gap-1.5 text-xs text-slate-400"><i data-lucide="badge-check" class="h-4 w-4 text-emerald-400"></i> Approved by an admin</span>
+            </div>
+            <div id="accepted-campaigns" class="mt-5 grid gap-4 md:grid-cols-3">
+                <p id="accepted-cases-empty" class="rounded-2xl border border-slate-800 bg-slate-900 p-5 text-sm text-slate-400 md:col-span-3">No cases have been approved yet.</p>
+            </div>
+        </section>
+
+        <section id="send-support" class="mt-8 rounded-3xl border border-brand-teal/30 bg-gradient-to-r from-teal-950/80 to-slate-900 p-6 sm:p-8" aria-labelledby="send-support-title">
+            <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.2em] text-teal-300">Send support</p>
+                    <h2 id="send-support-title" class="mt-2 text-xl font-extrabold text-white">Mobile wallet number</h2>
+                    <p class="mt-2 text-sm leading-6 text-slate-300">Send to this number using your mobile wallet. Please confirm the recipient details before sending.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <span id="mobile-wallet-number" class="rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 font-mono text-lg font-bold tracking-wider text-white">09064591492</span>
+                    <button id="copy-wallet-number" type="button" class="inline-flex items-center gap-2 rounded-xl bg-brand-teal px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-teal-600">
+                        <i data-lucide="copy" class="h-4 w-4"></i> Copy number
+                    </button>
+                </div>
+            </div>
+            <p id="gcash-instructions" role="status" aria-live="polite" class="mt-4 hidden rounded-xl border border-brand-teal/20 bg-slate-950/60 p-4 text-sm leading-6 text-slate-200"></p>
+            <p id="wallet-copy-status" role="status" aria-live="polite" class="mt-3 hidden text-sm text-teal-200"></p>
+            <p class="mt-3 text-xs text-slate-400">Open GCash and send manually. This site does not process or verify payments. Confirm the recipient name and details in GCash before sending.</p>
+        </section>
+
+        <section id="request-help" class="mt-12 grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
+            <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6 sm:p-8">
+                <span class="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1.5 text-xs font-bold text-emerald-300"><i data-lucide="badge-check" class="h-4 w-4"></i> Verified user · demo</span>
+                <h2 class="mt-4 text-2xl font-extrabold text-white">Request community support</h2>
+                <p class="mt-3 text-sm leading-6 text-slate-400">Share basic campaign details and a photo. Requests appear in the admin review queue in this browser session only.</p>
+                <p class="mt-3 text-xs leading-5 text-slate-400">For privacy, provide only the city and region—not a home or street address.</p>
+            </div>
+            <form id="campaign-form" class="rounded-3xl border border-slate-800 bg-slate-900 p-6 sm:p-8">
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <label class="text-xs font-semibold text-slate-300">Patient or campaign name<input name="name" required maxlength="80" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none focus:border-brand-teal" placeholder="Name to display"></label>
+                    <label class="text-xs font-semibold text-slate-300">Hospital or care provider<input name="hospital" required maxlength="100" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none focus:border-brand-teal" placeholder="Hospital or clinic"></label>
+                    <label class="text-xs font-semibold text-slate-300 sm:col-span-2">Patient location (city and region)<input name="location" required maxlength="120" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none focus:border-brand-teal" placeholder="e.g., Cebu City, Central Visayas (Region VII)"></label>
+                    <label class="text-xs font-semibold text-slate-300 sm:col-span-2">GCash number for receiving donations<input name="gcashNumber" type="tel" inputmode="numeric" autocomplete="tel-national" required minlength="11" maxlength="11" pattern="09[0-9]{9}" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none focus:border-brand-teal" placeholder="09XXXXXXXXX"><span class="mt-1 block text-[10px] text-slate-500">Enter an 11-digit Philippine mobile number starting with 09. It will be public if the case is approved.</span></label>
+                    <label class="text-xs font-semibold text-slate-300 sm:col-span-2">Short description<textarea name="description" required maxlength="300" rows="3" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none focus:border-brand-teal" placeholder="What kind of support is needed?"></textarea></label>
+                    <label class="text-xs font-semibold text-slate-300">Fundraising goal (PHP)<input name="goal" type="number" min="1" max="10000000" step="1" required class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none focus:border-brand-teal" placeholder="50000"></label>
+                    <label class="text-xs font-semibold text-slate-300">Campaign photo<input id="campaign-photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp" required class="mt-2 block w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-xs text-slate-300 file:mr-3 file:rounded-lg file:border-0 file:bg-slate-800 file:px-3 file:py-2 file:text-xs file:font-bold file:text-white"><span class="mt-1 block text-[10px] text-slate-500">JPG, PNG, or WebP · up to 5 MB</span></label>
+                </div>
+                <div id="photo-preview-wrap" class="mt-4 hidden items-center gap-3 rounded-xl border border-slate-800 bg-slate-950 p-3">
+                    <img id="photo-preview" alt="Selected campaign photo preview" class="h-16 w-16 rounded-lg object-cover">
+                    <span id="photo-name" class="min-w-0 break-all text-xs text-slate-300"></span>
+                </div>
+                <label class="mt-5 flex items-start gap-3 text-xs leading-5 text-slate-400"><input name="consent" type="checkbox" required class="mt-1 accent-teal-500">I have permission to share these details and authorize public display of this GCash number if the case is approved. I understand this demo does not securely submit or save my request.</label>
+                <button type="submit" class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-teal px-5 py-3 text-sm font-bold text-white hover:bg-teal-600"><i data-lucide="send" class="h-4 w-4"></i> Submit for admin review</button>
+                <p id="form-message" role="status" aria-live="polite" class="mt-3 hidden text-sm text-emerald-300"></p>
+            </form>
+        </section>
+    </section>
+
+    <section id="admin-login" class="fixed inset-0 z-[60] hidden items-center justify-center bg-slate-950/90 px-4 py-8 backdrop-blur-sm" aria-labelledby="admin-login-title" aria-modal="true" role="dialog">
+        <div class="w-full max-w-md rounded-3xl border border-slate-700 bg-slate-900 p-6 shadow-2xl sm:p-8">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl border border-brand-gold/30 bg-brand-gold/10 text-brand-gold"><i data-lucide="shield-check" class="h-6 w-6"></i></div>
+            <p class="mt-5 text-xs font-bold uppercase tracking-[0.2em] text-brand-gold">Admin access</p>
+            <h1 id="admin-login-title" class="mt-2 text-2xl font-extrabold text-white">Sign in to CareShield</h1>
+            <p class="mt-2 text-sm leading-6 text-slate-400">Enter the demo credentials to preview the admin dashboard.</p>
+            <div class="mt-5 rounded-xl border border-amber-500/20 bg-amber-500/5 p-3 text-xs leading-5 text-amber-200">
+                <span class="font-bold uppercase tracking-wider">Demo only</span>
+                <div class="mt-2 font-mono text-amber-100">Email: admin@careshield.ph<br>Password: CareShieldDemo2026!</div>
+            </div>
+            <form id="admin-login-form" class="mt-5 space-y-4">
+                <label class="block text-xs font-semibold text-slate-300">Admin email
+                    <input id="admin-email" name="email" type="email" autocomplete="username" required class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none focus:border-brand-gold" placeholder="admin@example.com">
+                </label>
+                <label class="block text-xs font-semibold text-slate-300">Password
+                    <input id="admin-password" name="password" type="password" autocomplete="current-password" required class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none focus:border-brand-gold" placeholder="Enter demo password">
+                </label>
+                <p id="admin-login-error" role="alert" aria-live="polite" class="hidden text-sm text-rose-300">Email or password is incorrect.</p>
+                <button type="submit" class="w-full rounded-xl bg-brand-gold px-5 py-3 text-sm font-bold text-slate-950 transition-colors hover:bg-amber-400">Sign in to admin</button>
+                <button type="button" id="cancel-admin-login" class="w-full rounded-xl border border-slate-700 px-5 py-3 text-sm font-bold text-slate-300 transition-colors hover:border-slate-500">Back to user portal</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="admin-interface" class="hidden">
+    <!-- Main Layout Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 xl:grid-cols-[260px_1fr] gap-6">
+
+            <!-- Admin Sidebar Navigation -->
+            <aside class="rounded-3xl border border-slate-800 bg-slate-900/80 p-4 h-fit sticky top-24 shadow-xl">
+                <div class="mb-6 flex items-center gap-3 px-2">
+                    <div class="h-10 w-10 rounded-2xl bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold">
+                        <i data-lucide="user-check" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-bold">Logged In As</div>
+                        <div class="text-sm font-bold text-white">RUFO MANITO</div>
+                    </div>
+                </div>
+
+                <nav class="space-y-1.5 text-xs font-semibold">
+                    <button type="button" data-admin-tab="overview" id="nav-overview" class="admin-nav-item w-full flex items-center justify-between rounded-xl border border-brand-gold bg-slate-800 px-3.5 py-2.5 text-left text-white transition-all">
+                        <span class="flex items-center gap-2.5"><i data-lucide="layout-dashboard" class="w-4 h-4 text-brand-gold"></i> Dashboard Overview</span>
+                    </button>
+                    <button type="button" data-admin-tab="queue" id="nav-queue" class="admin-nav-item w-full flex items-center justify-between rounded-xl border border-transparent hover:bg-slate-800/70 px-3.5 py-2.5 text-left text-slate-300 transition-all">
+                        <span class="flex items-center gap-2.5"><i data-lucide="file-search" class="w-4 h-4 text-slate-400"></i> Verification Queue</span>
+                        <span id="pending-count" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-brand-gold text-[10px] font-bold">2 Pending</span>
+                    </button>
+                    <button type="button" data-admin-tab="transfers" id="nav-transfers" class="admin-nav-item w-full flex items-center justify-between rounded-xl border border-transparent hover:bg-slate-800/70 px-3.5 py-2.5 text-left text-slate-300 transition-all">
+                        <span class="flex items-center gap-2.5"><i data-lucide="receipt" class="w-4 h-4 text-slate-400"></i> Payment & Ref Audits</span>
+                    </button>
+                    <button type="button" data-admin-tab="wallet" id="nav-wallet" class="admin-nav-item w-full flex items-center justify-between rounded-xl border border-transparent hover:bg-slate-800/70 px-3.5 py-2.5 text-left text-slate-300 transition-all">
+                        <span class="flex items-center gap-2.5"><i data-lucide="wallet" class="w-4 h-4 text-slate-400"></i> Wallet</span>
+                    </button>
+                    <button type="button" data-admin-tab="logistics" id="nav-logistics" class="admin-nav-item w-full flex items-center justify-between rounded-xl border border-transparent hover:bg-slate-800/70 px-3.5 py-2.5 text-left text-slate-300 transition-all">
+                        <span class="flex items-center gap-2.5"><i data-lucide="truck" class="w-4 h-4 text-slate-400"></i> Hospital Supplies</span>
+                    </button>
+                </nav>
+
+                <div class="mt-8 rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-xs">
+                    <div class="flex items-center justify-between text-slate-400 mb-2">
+                        <span>Verification SLA</span>
+                        <span class="text-emerald-400 font-bold">98.4%</span>
+                    </div>
+                    <div class="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
+                        <div class="verification-sla-bar h-full rounded-full bg-gradient-to-r from-brand-gold to-emerald-400"></div>
+                    </div>
+                    <p class="mt-3 text-[11px] text-slate-400 leading-relaxed">Average document verification completed in under 4 hours.</p>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="space-y-6">
+
+                <!-- Overview Tab -->
+                <div id="tab-overview" class="admin-tab-content space-y-6">
+                    <!-- Stat Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-lg">
+                            <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
+                                <span>Total Raised</span>
+                                <i data-lucide="coins" class="w-4 h-4 text-brand-gold"></i>
+                            </div>
+                            <div class="mt-4 text-2xl font-extrabold text-white">₱14,850,000</div>
+                            <div class="mt-1 text-xs text-emerald-400 font-semibold">+18% this month</div>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-lg">
+                            <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
+                                <span>Verified Cases</span>
+                                <i data-lucide="heart-pulse" class="w-4 h-4 text-brand-teal"></i>
+                            </div>
+                            <div class="mt-4 text-2xl font-extrabold text-white">342 Patients</div>
+                            <div class="mt-1 text-xs text-slate-400">Across 18 regions</div>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-lg">
+                            <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
+                                <span>Pending Verification</span>
+                                <i data-lucide="clock" class="w-4 h-4 text-brand-gold"></i>
+                            </div>
+                            <div class="mt-4 text-2xl font-extrabold text-brand-gold"><span class="pending-count-value">2</span> Cases</div>
+                            <div class="mt-1 text-xs text-amber-400 font-semibold">Requires medical cert audit</div>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-lg">
+                            <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
+                                <span>Audited Transfers</span>
+                                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+                            </div>
+                            <div class="mt-4 text-2xl font-extrabold text-white">1,490 Logs</div>
+                            <div class="mt-1 text-xs text-emerald-400 font-semibold">100% GCash/Maya verified</div>
+                        </div>
+                    </div>
+
+                    <!-- Live Active Patient Monitoring Table -->
+                    <div class="rounded-3xl border border-slate-800 bg-slate-900 overflow-hidden shadow-xl">
+                        <div class="border-b border-slate-800 px-6 py-4 flex items-center justify-between">
+                            <div>
+                                <h3 class="text-base font-bold text-white">Active Verified Campaigns Management</h3>
+                                <p class="text-xs text-slate-400">Manage campaign status, hospital disbursement status, and e-wallet destinations</p>
+                            </div>
+                            <button type="button" data-admin-tab="queue" class="px-3 py-1.5 bg-brand-gold text-slate-950 font-bold text-xs rounded-xl hover:bg-amber-400 transition-colors">
+                                Review Pending (<span class="pending-count-value">2</span>)
+                            </button>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-left text-xs text-slate-300">
+                                <thead class="bg-slate-950 text-slate-400 uppercase tracking-wider text-[10px]">
+                                    <tr>
+                                        <th class="px-6 py-3.5">Patient Name</th>
+                                        <th class="px-6 py-3.5">Medical Condition</th>
+                                        <th class="px-6 py-3.5">Hospital Facility</th>
+                                        <th class="px-6 py-3.5">Funded / Goal</th>
+                                        <th class="px-6 py-3.5">Status</th>
+                                        <th class="px-6 py-3.5">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800">
+                                    <tr>
+                                        <td class="px-6 py-4 font-bold text-white">Csab employee</td>
+                                        <td class="px-6 py-4 text-brand-gold">Stage 3 Chronic Kidney Disease</td>
+                                        <td class="px-6 py-4">NKTI Quezon City</td>
+                                        <td class="px-6 py-4 font-mono">₱92,500 / ₱150,000</td>
+                                        <td class="px-6 py-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px]">Active Verified</span></td>
+                                        <td class="px-6 py-4"><button type="button" data-disburse-aid class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-200">Disburse Aid</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 font-bold text-white">Baby Manito Jr.</td>
+                                        <td class="px-6 py-4 text-brand-gold">Pediatric Acute Leukemia</td>
+                                        <td class="px-6 py-4">PCMC Quezon City</td>
+                                        <td class="px-6 py-4 font-mono">₱184,000 / ₱250,000</td>
+                                        <td class="px-6 py-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px]">Active Verified</span></td>
+                                        <td class="px-6 py-4"><button type="button" data-disburse-aid class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-200">Disburse Aid</button>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 font-bold text-white">Villena's cousin</td>
+                                        <td class="px-6 py-4 text-brand-gold">Emergency Heart Bypass</td>
+                                        <td class="px-6 py-4">Philippine Heart Center</td>
+                                        <td class="px-6 py-4 font-mono">₱120,000 / ₱300,000</td>
+                                        <td class="px-6 py-4"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-[10px]">Active Verified</span></td>
+                                        <td class="px-6 py-4"><button type="button" data-disburse-aid class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-200">Disburse Aid</button>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verification Queue Tab -->
+                <div id="tab-queue" class="admin-tab-content hidden space-y-6">
+                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+                        <h3 class="text-lg font-bold text-white mb-1">Pending Medical Claim Verification Queue</h3>
+                        <p class="text-xs text-slate-400 mb-6">Review hospital diagnosis certificates and verify legit sickness claims before publishing to public feed.</p>
+
+                        <div class="space-y-4" id="queue-container">
+                            <!-- Pending Application Item 1 -->
+                            <div class="queue-item p-5 bg-slate-950 rounded-2xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4" data-patient="Romeo Maranan" data-condition="Severe Burn Injury - ICU Care" data-location="Not provided" data-hospital="Not provided" data-goal="80000">
+                                <div class="space-y-1.5">
+                                    <div class="flex items-center gap-2">
+                                        <button type="button" data-view-queue-photo class="text-left text-sm font-bold text-white underline decoration-slate-600 underline-offset-4 hover:text-brand-teal focus-visible:text-brand-teal">Patient: Romeo Maranan</button>
+                                        <span class="px-2 py-0.5 rounded bg-amber-500/10 text-brand-gold text-[10px] font-bold">Unverified</span>
+                                    </div>
+                                    <div class="text-xs text-slate-400">Location: Not provided</div>
+                                    <div class="text-xs font-semibold text-brand-gold">Condition: Severe Burn Injury - ICU Care</div>
+                                    <p class="text-xs text-slate-400 max-w-xl">Submitted Medical Proof: <span class="font-mono text-slate-300">Diagnos_Cert_GovHospital_Maranan.pdf</span> (Target Goal: ₱80,000)</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <button type="button" data-queue-action="approve" class="px-4 py-2 bg-brand-emerald text-white font-bold text-xs rounded-xl hover:bg-emerald-600 transition-colors flex items-center gap-1">
+                                        <i data-lucide="check" class="w-4 h-4"></i> Approve & Publish
+                                    </button>
+                                    <button type="button" data-queue-action="reject" class="px-4 py-2 bg-rose-600 text-white font-bold text-xs rounded-xl hover:bg-rose-700 transition-colors flex items-center gap-1">
+                                        <i data-lucide="x" class="w-4 h-4"></i> Reject Claim
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Pending Application Item 2 -->
+                            <div class="queue-item p-5 bg-slate-950 rounded-2xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4" data-patient="Lara Ornillo" data-condition="Congenital Heart Defect (Infant)" data-location="Not provided" data-hospital="Not provided" data-goal="200000">
+                                <div class="space-y-1.5">
+                                    <div class="flex items-center gap-2">
+                                        <button type="button" data-view-queue-photo class="text-left text-sm font-bold text-white underline decoration-slate-600 underline-offset-4 hover:text-brand-teal focus-visible:text-brand-teal">Patient: Lara Ornillo</button>
+                                        <span class="px-2 py-0.5 rounded bg-amber-500/10 text-brand-gold text-[10px] font-bold">Unverified</span>
+                                    </div>
+                                    <div class="text-xs text-slate-400">Location: Not provided</div>
+                                    <div class="text-xs font-semibold text-brand-gold">Condition: Congenital Heart Defect (Infant)</div>
+                                    <p class="text-xs text-slate-400 max-w-xl">Submitted Medical Proof: <span class="font-mono text-slate-300">PediatricCardio_Report_Ornillo.pdf</span> (Target Goal: ₱200,000)</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <button type="button" data-queue-action="approve" class="px-4 py-2 bg-brand-emerald text-white font-bold text-xs rounded-xl hover:bg-emerald-600 transition-colors flex items-center gap-1">
+                                        <i data-lucide="check" class="w-4 h-4"></i> Approve & Publish
+                                    </button>
+                                    <button type="button" data-queue-action="reject" class="px-4 py-2 bg-rose-600 text-white font-bold text-xs rounded-xl hover:bg-rose-700 transition-colors flex items-center gap-1">
+                                        <i data-lucide="x" class="w-4 h-4"></i> Reject Claim
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment & Reference Audits Tab -->
+                <div id="tab-transfers" class="admin-tab-content hidden space-y-6">
+                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+                        <h3 class="text-lg font-bold text-white mb-1">Donor Payment Reference Audit Trail</h3>
+                        <p class="text-xs text-slate-400 mb-6">Cross-check direct GCash and Maya reference numbers submitted by donors.</p>
+
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-left text-xs text-slate-300">
+                                <thead class="bg-slate-950 text-slate-400 uppercase tracking-wider text-[10px]">
+                                    <tr>
+                                        <th class="px-6 py-3.5">Donor Name</th>
+                                        <th class="px-6 py-3.5">Target Patient / Campaign</th>
+                                        <th class="px-6 py-3.5">Amount</th>
+                                        <th class="px-6 py-3.5">Ref Number</th>
+                                        <th class="px-6 py-3.5">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800">
+                                    <tr>
+                                        <td class="px-6 py-4 font-bold text-white">Joshua Descallar</td>
+                                        <td class="px-6 py-4 text-brand-gold">John Rey Gatilogo</td>
+                                        <td class="px-6 py-4 font-mono font-bold text-emerald-400">₱1,000</td>
+                                        <td class="px-6 py-4 font-mono">1009284751</td>
+                                        <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold text-[10px]">Verified Math Match</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 font-bold text-white">Bianca Sumile</td>
+                                        <td class="px-6 py-4 text-brand-gold">Sunny Bucayani</td>
+                                        <td class="px-6 py-4 font-mono font-bold text-emerald-400">₱5,000</td>
+                                        <td class="px-6 py-4 font-mono">2008173645</td>
+                                        <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold text-[10px]">Verified Math Match</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 font-bold text-white">Anonymous Donor</td>
+                                        <td class="px-6 py-4 text-brand-gold">General Emergency Pool</td>
+                                        <td class="px-6 py-4 font-mono font-bold text-emerald-400">₱500</td>
+                                        <td class="px-6 py-4 font-mono">3007162534</td>
+                                        <td class="px-6 py-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold text-[10px]">Verified Math Match</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wallet Tab -->
+                <div id="tab-wallet" class="admin-tab-content hidden space-y-6">
+                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-4">
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Wallet contributions</h3>
+                                <p class="mt-1 text-xs text-slate-400">See how many donations were recorded and how much supporters contributed.</p>
+                            </div>
+                            <span class="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-[10px] font-bold text-amber-300">DEMO PAYMENT RECORDS</span>
+                        </div>
+
+                        <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Total received</span>
+                                <div id="wallet-total" class="mt-3 text-2xl font-extrabold text-emerald-400">₱0</div>
+                            </div>
+                            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Donation count</span>
+                                <div id="wallet-count" class="mt-3 text-2xl font-extrabold text-white">0</div>
+                            </div>
+                            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Named supporters</span>
+                                <div id="wallet-named-count" class="mt-3 text-2xl font-extrabold text-white">0</div>
+                            </div>
+                            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Anonymous total</span>
+                                <div id="wallet-anonymous-total" class="mt-3 text-2xl font-extrabold text-brand-gold">₱0</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 overflow-x-auto rounded-2xl border border-slate-800">
+                            <table class="min-w-full text-left text-xs text-slate-300">
+                                <thead class="bg-slate-950 text-[10px] uppercase tracking-wider text-slate-400">
+                                    <tr>
+                                        <th class="px-5 py-3.5">Supporter</th>
+                                        <th class="px-5 py-3.5">Helping</th>
+                                        <th class="px-5 py-3.5">Amount</th>
+                                        <th class="px-5 py-3.5">Payment status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="wallet-transactions" class="divide-y divide-slate-800"></tbody>
+                            </table>
+                        </div>
+                        <p class="mt-4 text-xs leading-5 text-slate-500">These are sample audit entries only, not live wallet or bank balances. This demo does not connect to GCash, Maya, or a payment processor.</p>
+                    </div>
+                </div>
+
+                <!-- Logistics Tab -->
+                <div id="tab-logistics" class="admin-tab-content hidden space-y-6">
+                    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+                        <h3 class="text-lg font-bold text-white mb-1">Medical Inventory & Hospital Logistics</h3>
+                        <p class="text-xs text-slate-400 mb-6">Track emergency relief kits, dialysis supply packs, and partner hospital allocations.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                                <span class="text-xs text-slate-400 block mb-1">Dialyzer Supply Stock</span>
+                                <div class="text-2xl font-bold text-white">450 Kits</div>
+                                <span class="text-[10px] text-emerald-400 font-bold">Allocated for NKTI Patients</span>
+                            </div>
+                            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                                <span class="text-xs text-slate-400 block mb-1">Chemotherapy Vials</span>
+                                <div class="text-2xl font-bold text-white">85 Units</div>
+                                <span class="text-[10px] text-emerald-400 font-bold">Allocated for PCMC Pediatric</span>
+                            </div>
+                            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                                <span class="text-xs text-slate-400 block mb-1">Disaster Relief Kits</span>
+                                <div class="text-2xl font-bold text-white">1,200 Packs</div>
+                                <span class="text-[10px] text-brand-gold font-bold">Ready for Typhoon Dispatch</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    </section>
+
+    <section id="queue-photo-viewer" class="fixed inset-0 z-[70] hidden items-center justify-center bg-slate-950/90 px-4 py-8 backdrop-blur-sm" aria-labelledby="queue-photo-title" aria-modal="true" role="dialog">
+        <div class="w-full max-w-3xl rounded-3xl border border-slate-700 bg-slate-900 p-5 shadow-2xl sm:p-7">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.2em] text-brand-teal">Verification queue</p>
+                    <h2 id="queue-photo-title" class="mt-2 text-xl font-extrabold text-white">Submitted photo</h2>
+                </div>
+                <button id="close-queue-photo" type="button" class="rounded-xl border border-slate-700 px-3 py-2 text-xs font-bold text-slate-300 hover:border-slate-500" aria-label="Close photo viewer">Close</button>
+            </div>
+            <div id="queue-photo-empty" class="mt-5 rounded-2xl border border-slate-800 bg-slate-950 p-8 text-center text-sm text-slate-400">No photo was attached to this sample queue item.</div>
+            <img id="queue-photo-image" class="mt-5 hidden max-h-[70vh] w-full rounded-2xl bg-slate-950 object-contain" alt="">
+        </div>
+    </section>
+
+</body>
+</html>
